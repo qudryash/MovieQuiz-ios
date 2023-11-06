@@ -46,6 +46,9 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var counterLabel: UILabel!
     
+    @IBOutlet private var yesButton: UIButton!
+    @IBOutlet private var noButton: UIButton!
+    
     //    Метод конвертации из "Список вопросов" QuizQuestion в "Вопрос показан" QuizStepViewModel
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         let questionStep = QuizStepViewModel(
@@ -60,6 +63,18 @@ final class MovieQuizViewController: UIViewController {
         imageView.image = step.image
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
+    }
+    
+    //    Метод отключения кнопки
+    private func disabledButton (){
+        yesButton.isEnabled = false
+        noButton.isEnabled = false
+    }
+    
+    //    Метод включения кнопки
+    private func enabledButton (){
+        yesButton.isEnabled = true
+        noButton.isEnabled = true
     }
     
     //    Метод изменения рамки после выбора ответа
@@ -100,7 +115,10 @@ final class MovieQuizViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    //    Метод вывода нового вопроса
     private func showNextQuestionOrResults() {
+        
+        enabledButton()
         
         imageView.layer.borderWidth = 0
         
@@ -128,17 +146,18 @@ final class MovieQuizViewController: UIViewController {
         show(quiz: viewModel)
         
     }
-
+    
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = true
-        
+        disabledButton()
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = false
+        disabledButton()
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
