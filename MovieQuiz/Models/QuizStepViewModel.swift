@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 //    Структура состояния "Вопрос показан"
-private struct QuizStepViewModel {
+struct QuizStepViewModel {
     let image: UIImage
     let question: String
     let questionNumber: String
