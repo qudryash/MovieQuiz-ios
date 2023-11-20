@@ -16,21 +16,17 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var correctAnswers = 0
     
     private let questionsAmount: Int = 3
-    private var questionFactory: QuestionFactoryProtocol = QuestionFactory() // изменилось на var
+    private var questionFactory: QuestionFactoryProtocol = QuestionFactory()
     private var currentQuestion: QuizQuestion?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //questionFactory = QuestionFactory() // добавил строку
-        questionFactory.delegate = self // смог изменить после внесения изменения в protocol QuestionFactoryProtocol -> var delegate: QuestionFactoryDelegate? { get set }
-        
-        questionFactory.requestNextQuestion() // ? - fix
-        
+        questionFactory.delegate = self
+        questionFactory.requestNextQuestion()
     }
     
     // MARK: - QuestionFactoryDelegate
-    
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else {
@@ -104,23 +100,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
-            
-            questionFactory.requestNextQuestion() // ? - fix
+            questionFactory.requestNextQuestion()
         }
-        
-        //        }
-        
         alert.addAction(action)
-        
         self.present(alert, animated: true, completion: nil)
-        
     }
     
     //    Метод вывода нового вопроса
     private func showNextQuestionOrResults() {
         
         enabledButton()
-        
         imageView.layer.borderWidth = 0
         
         if currentQuestionIndex == questionsAmount - 1 {
@@ -157,7 +146,4 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         disabledButton()
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
-    
 }
-
-
