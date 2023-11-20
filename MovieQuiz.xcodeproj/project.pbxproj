@@ -22,6 +22,7 @@
 		C80CB1BD2B0B834B0058B1F9 /* QuizStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80CB1BC2B0B834B0058B1F9 /* QuizStepViewModel.swift */; };
 		C80CB1BF2B0B83A30058B1F9 /* QuizResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80CB1BE2B0B83A30058B1F9 /* QuizResultsViewModel.swift */; };
 		C80CB1C12B0B83C70058B1F9 /* QuizQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80CB1C02B0B83C70058B1F9 /* QuizQuestion.swift */; };
+		C80CB1C32B0B8C2C0058B1F9 /* QuestionFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80CB1C22B0B8C2C0058B1F9 /* QuestionFactoryProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		C80CB1BC2B0B834B0058B1F9 /* QuizStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizStepViewModel.swift; sourceTree = "<group>"; };
 		C80CB1BE2B0B83A30058B1F9 /* QuizResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultsViewModel.swift; sourceTree = "<group>"; };
 		C80CB1C02B0B83C70058B1F9 /* QuizQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestion.swift; sourceTree = "<group>"; };
+		C80CB1C22B0B8C2C0058B1F9 /* QuestionFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFactoryProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				C80CB1B92B0B82650058B1F9 /* QuestionFactory.swift */,
+				C80CB1C22B0B8C2C0058B1F9 /* QuestionFactoryProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 			files = (
 				AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */,
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
+				C80CB1C32B0B8C2C0058B1F9 /* QuestionFactoryProtocol.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
 				C80CB1BD2B0B834B0058B1F9 /* QuizStepViewModel.swift in Sources */,
 				C80CB1C12B0B83C70058B1F9 /* QuizQuestion.swift in Sources */,
