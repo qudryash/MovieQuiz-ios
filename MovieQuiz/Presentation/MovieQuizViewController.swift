@@ -16,16 +16,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var correctAnswers = 0
     
     private let questionsAmount: Int = 10
-    private let questionFactory: QuestionFactoryProtocol?
+    private var questionFactory: QuestionFactoryProtocol? = QuestionFactory() // изменилось на var
     private var currentQuestion: QuizQuestion?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        questionFactory = QuestionFactory() // добавил строку
+        questionFactory?.delegate = self // смог изменить после внесения изменения в protocol QuestionFactoryProtocol -> var delegate: QuestionFactoryDelegate? { get set }
         
-        questionFactory.delegate = self
-        
-        questionFactory.requestNextQuestion()
+        questionFactory?.requestNextQuestion() // ? - fix
         
     }
     
@@ -104,7 +104,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         self.currentQuestionIndex = 0
         self.correctAnswers = 0
         
-        questionFactory.requestNextQuestion()
+        questionFactory?.requestNextQuestion() // ? - fix
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             guard let self = self else { return }
@@ -135,7 +135,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             show(quiz: viewModel)
         } else {
             currentQuestionIndex += 1
-            questionFactory.requestNextQuestion() 
+            questionFactory?.requestNextQuestion() // ? - fix
         }
     }
     
