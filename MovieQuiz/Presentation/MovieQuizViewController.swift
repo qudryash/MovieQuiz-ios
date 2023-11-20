@@ -30,13 +30,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     // MARK: - QuestionFactoryDelegate
-
-
+    
+    
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else {
             return
         }
-
+        
         currentQuestion = question
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
@@ -100,12 +100,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
         let action = UIAlertAction(title: result.buttonText, style: .default) { [weak self] _ in
             guard let self = self else { return }
+            
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            
+            questionFactory?.requestNextQuestion() // ? - fix
         }
-        self.currentQuestionIndex = 0
-        self.correctAnswers = 0
-        
-        questionFactory?.requestNextQuestion() // ? - fix
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             guard let self = self else { return }
             self.showNextQuestionOrResults()
