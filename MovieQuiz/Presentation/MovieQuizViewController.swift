@@ -15,17 +15,17 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
     
-    private let questionsAmount: Int = 10
-    private var questionFactory: QuestionFactoryProtocol? = QuestionFactory() // изменилось на var
+    private let questionsAmount: Int = 3
+    private var questionFactory: QuestionFactoryProtocol = QuestionFactory() // изменилось на var
     private var currentQuestion: QuizQuestion?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        questionFactory = QuestionFactory() // добавил строку
-        questionFactory?.delegate = self // смог изменить после внесения изменения в protocol QuestionFactoryProtocol -> var delegate: QuestionFactoryDelegate? { get set }
+        //questionFactory = QuestionFactory() // добавил строку
+        questionFactory.delegate = self // смог изменить после внесения изменения в protocol QuestionFactoryProtocol -> var delegate: QuestionFactoryDelegate? { get set }
         
-        questionFactory?.requestNextQuestion() // ? - fix
+        questionFactory.requestNextQuestion() // ? - fix
         
     }
     
@@ -86,7 +86,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         imageView.layer.cornerRadius = 20
         
         //        Задержка по времени
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            guard let self = self else { return }
             self.showNextQuestionOrResults()
         }
     }
@@ -99,17 +100,15 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             preferredStyle: .alert)
         
         let action = UIAlertAction(title: result.buttonText, style: .default) { [weak self] _ in
-            guard let self = self else { return }
+            guard let self else { return }
             
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
             
-            questionFactory?.requestNextQuestion() // ? - fix
+            questionFactory.requestNextQuestion() // ? - fix
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            guard let self = self else { return }
-            self.showNextQuestionOrResults()
-        }
+        
+        //        }
         
         alert.addAction(action)
         
@@ -135,7 +134,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             show(quiz: viewModel)
         } else {
             currentQuestionIndex += 1
-            questionFactory?.requestNextQuestion() // ? - fix
+            questionFactory.requestNextQuestion() // ? - fix
         }
     }
     
