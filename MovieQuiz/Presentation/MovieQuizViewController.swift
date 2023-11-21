@@ -14,12 +14,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     // Объявляем значения переменных
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
-    
     private let questionsAmount: Int = 3
     private var questionFactory: QuestionFactoryProtocol = QuestionFactory()
     private var currentQuestion: QuizQuestion?
+    private let alertPresenter: AlertPresenterProtocol = AlertPresenter()
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         questionFactory.delegate = self
@@ -88,25 +89,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
     }
     
-    //    Метод вывода на экран Алерт
-    private func show (quiz result: QuizResultsViewModel) {
-        let alert = UIAlertController(
-            title: result.title,
-            message: result.text,
-            preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: result.buttonText, style: .default) { [weak self] _ in
-            guard let self else { return }
-            
-            self.currentQuestionIndex = 0
-            self.correctAnswers = 0
-            questionFactory.requestNextQuestion()
-        }
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    //    Метод вывода нового вопроса
+    //    Метод вывода нового вопроса или итогового результата
     private func showNextQuestionOrResults() {
         
         enabledButton()
@@ -114,17 +97,24 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
         if currentQuestionIndex == questionsAmount - 1 {
             let text = correctAnswers == questionsAmount ?
-            "Поздравляем, вы ответили на 10 из 10!" :
-            "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
-            let viewModel = QuizResultsViewModel(
+            "Поздравляем, вы ответили на \(correctAnswers) из \(questionsAmount)!" :
+            "Вы ответили на \(correctAnswers) из \(questionsAmount), попробуйте ещё раз!"
+            let alertInformation = AlertModel(
                 title: "Этот раунд окончен!",
-                text: text,
-                buttonText: "Сыграть ещё раз")
-            show(quiz: viewModel)
+                message: text,
+                buttonText: "Сыграть ещё раз",
+                completion: resetGame)
+            alertPresenter.show(alertInformation: alertInformation, viewController: self)
         } else {
             currentQuestionIndex += 1
             questionFactory.requestNextQuestion() // ? - fix
         }
+    }
+    
+    private func resetGame (_: UIAlertAction) {
+        self.currentQuestionIndex = 0
+        self.correctAnswers = 0
+        self.questionFactory.requestNextQuestion()
     }
     
     // MARK: - Actions
