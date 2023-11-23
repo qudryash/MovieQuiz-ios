@@ -6,7 +6,7 @@
 //
 
 import UIKit
-class AlertPresenter: AlertPresenterProtocol {
+final class AlertPresenter: AlertPresenterProtocol {
     
     func show(alertInformation: AlertModel, viewController: UIViewController) {
         

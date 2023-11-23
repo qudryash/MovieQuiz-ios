@@ -11,10 +11,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private var yesButton: UIButton!
     @IBOutlet private var noButton: UIButton!
     
-    // Объявляем значения переменных
+    // Объявляем значения переменных и ссылки на протоколы и делегаты
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
-    private let questionsAmount: Int = 3
+    private let questionsAmount: Int = 10
     private var questionFactory: QuestionFactoryProtocol = QuestionFactory()
     private var currentQuestion: QuizQuestion?
     private let alertPresenter: AlertPresenterProtocol = AlertPresenter()
@@ -92,12 +92,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     //    Метод вывода нового вопроса или итогового результата
     private func showNextQuestionOrResults() {
-        
         enabledButton()
         imageView.layer.borderWidth = 0
         
         if currentQuestionIndex == questionsAmount - 1 {
             statisticService.store(correct: correctAnswers, total: questionsAmount)
+            
             let text = """
             Ваш результат: \(correctAnswers) из \(questionsAmount)!
             Количество сыграных квизов: \(statisticService.gamesCount)
@@ -112,14 +112,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                 completion: resetGame)
             
             alertPresenter.show(alertInformation: alertInformation, viewController: self)
-            
-            
         } else {
             currentQuestionIndex += 1
             questionFactory.requestNextQuestion()
         }
     }
     
+    // Метод сброса вопросов
     private func resetGame (_: UIAlertAction) {
         self.currentQuestionIndex = 0
         self.correctAnswers = 0

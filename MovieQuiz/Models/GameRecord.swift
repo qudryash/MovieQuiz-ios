@@ -7,6 +7,7 @@
 
 import Foundation
 
+//    Структура результатов 
 struct GameRecord: Codable {
     let correct: Int
     let total: Int
@@ -19,5 +20,4 @@ struct GameRecord: Codable {
     func convertToString() -> String {
         return "\(correct)/\(total) (\(date.dateTimeString))"
     }
-    
 }
