@@ -10,12 +10,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private var counterLabel: UILabel!
     @IBOutlet private var yesButton: UIButton!
     @IBOutlet private var noButton: UIButton!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     // Объявляем значения переменных и ссылки на протоколы и делегаты
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
     private let questionsAmount: Int = 10
-    private var questionFactory: QuestionFactoryProtocol = QuestionFactory()
+    private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private let alertPresenter: AlertPresenterProtocol = AlertPresenter()
     private var statisticService: StatisticService = StatisticServiceImplementation()
@@ -24,8 +25,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        questionFactory.delegate = self
-        questionFactory.requestNextQuestion()
+        
+        imageView.layer.cornerRadius = 20
+        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+        statisticService = StatisticServiceImplementation()
+        
+        showLoadingIndicator()
+        questionFactory?.loadData()
     }
     
     // MARK: - QuestionFactoryDelegate
@@ -46,11 +52,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     //    Метод конвертации из "Список вопросов" QuizQuestion в "Вопрос показан" QuizStepViewModel
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        let questionStep = QuizStepViewModel(
-            image: UIImage(named: model.image) ?? UIImage(),
+        return QuizStepViewModel (
+            image: UIImage(data: model.image) ?? UIImage(),
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
-        return questionStep
     }
     
     //    Метод вывода на экран вопроса
@@ -114,15 +119,50 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             alertPresenter.show(alertInformation: alertInformation, viewController: self)
         } else {
             currentQuestionIndex += 1
-            questionFactory.requestNextQuestion()
+            questionFactory?.requestNextQuestion()
         }
+    }
+    
+    private func showNetworkError(message: String) {
+        hideLoadingIndicator()
+        
+        let alertError = AlertModel(
+            title: "Ошибка",
+            message: message,
+            buttonText: "Попробовать еще раз",
+            completion: resetGame)
+        
+        alertPresenter.show(alertInformation: alertError, viewController: self)
     }
     
     // Метод сброса вопросов
     private func resetGame (_: UIAlertAction) {
         self.currentQuestionIndex = 0
         self.correctAnswers = 0
-        self.questionFactory.requestNextQuestion()
+        self.questionFactory?.requestNextQuestion()
+    }
+    
+    // Метод активации индикатора загрузки
+    private func showLoadingIndicator () {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    // Метод деактивации индикатора загрузки
+    private func hideLoadingIndicator () {
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
+    }
+    
+    // Метод отрицательной загрузки данных с сервера
+    func didFailToLoadData(with error: Error) {
+        showNetworkError(message: error.localizedDescription)
+    }
+    
+    // Метод положительной загрузки данных с сервера
+    func didLoadDataFromServer() {
+        activityIndicator.isHidden = true
+        questionFactory?.requestNextQuestion()
     }
     
     // MARK: - Actions
