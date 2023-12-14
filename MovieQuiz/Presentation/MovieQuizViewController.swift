@@ -65,16 +65,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         counterLabel.text = step.questionNumber
     }
     
-    //    Метод отключения кнопки
-    private func disabledButton (){
-        yesButton.isEnabled = false
-        noButton.isEnabled = false
-    }
-    
-    //    Метод включения кнопки
-    private func enabledButton (){
-        yesButton.isEnabled = true
-        noButton.isEnabled = true
+    //    Метод работы кнопки
+    private func activeButton (isCorrect: Bool){
+        if isCorrect {
+            yesButton.isEnabled = false
+            noButton.isEnabled = false
+            
+        } else {
+            yesButton.isEnabled = true
+            noButton.isEnabled = true
+        }
     }
     
     //    Метод изменения рамки после выбора ответа
@@ -97,7 +97,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     //    Метод вывода нового вопроса или итогового результата
     private func showNextQuestionOrResults() {
-        enabledButton()
+        activeButton(isCorrect: false)
         imageView.layer.borderWidth = 0
         
         if currentQuestionIndex == questionsAmount - 1 {
@@ -172,7 +172,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             return
         }
         let givenAnswer = true
-        disabledButton()
+        activeButton(isCorrect: true)
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
@@ -181,7 +181,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             return
         }
         let givenAnswer = false
-        disabledButton()
+        activeButton(isCorrect: true)
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
 }
