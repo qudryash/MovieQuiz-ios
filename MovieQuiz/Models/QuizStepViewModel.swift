@@ -5,7 +5,6 @@
 //  Created by Kudryashov Andrey on 20.11.2023.
 //
 
-import Foundation
 import UIKit
 
 //    Структура состояния "Вопрос показан"
