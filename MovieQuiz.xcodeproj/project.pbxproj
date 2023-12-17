@@ -31,7 +31,7 @@
 		C8602B5C2B0F8ECD008F4210 /* GameRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8602B5B2B0F8ECD008F4210 /* GameRecord.swift */; };
 		C86B66A92B2F16700040D162 /* ArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86B66A82B2F16700040D162 /* ArrayTests.swift */; };
 		C86B66BC2B2F1B1D0040D162 /* MoviesLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86B66B52B2F1B180040D162 /* MoviesLoaderTests.swift */; };
-		C86B66BE2B2F1F850040D162 /* StubNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86B66BD2B2F1F850040D162 /* StubNetworkClient.swift */; };
+		C86B66BF2B2F20AB0040D162 /* StubNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86B66BD2B2F1F850040D162 /* StubNetworkClient.swift */; };
 		C87A5E322B1BAE7A00A4DE08 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87A5E312B1BAE7A00A4DE08 /* NetworkClient.swift */; };
 		C87A5E342B1BB00A00A4DE08 /* MostPopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87A5E332B1BB00A00A4DE08 /* MostPopularMovies.swift */; };
 		C87A5E362B1BB09C00A4DE08 /* MoviesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87A5E352B1BB09C00A4DE08 /* MoviesLoader.swift */; };
@@ -197,6 +197,7 @@
 				C8602B592B0F8D90008F4210 /* StatisticService.swift */,
 				C87A5E312B1BAE7A00A4DE08 /* NetworkClient.swift */,
 				C87A5E352B1BB09C00A4DE08 /* MoviesLoader.swift */,
+				C86B66BD2B2F1F850040D162 /* StubNetworkClient.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -219,7 +220,6 @@
 			children = (
 				C86B66A82B2F16700040D162 /* ArrayTests.swift */,
 				C86B66B52B2F1B180040D162 /* MoviesLoaderTests.swift */,
-				C86B66BD2B2F1F850040D162 /* StubNetworkClient.swift */,
 			);
 			path = MovieQuizTests;
 			sourceTree = "<group>";
@@ -362,6 +362,7 @@
 				AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */,
 				C87A5E342B1BB00A00A4DE08 /* MostPopularMovies.swift in Sources */,
 				C8602AD82B0CEA3E008F4210 /* AlertPresenter.swift in Sources */,
+				C86B66BF2B2F20AB0040D162 /* StubNetworkClient.swift in Sources */,
 				C8602AD62B0CE96E008F4210 /* AlertModel.swift in Sources */,
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
 				C8602ADA2B0CF792008F4210 /* AlertPresenterProtocol.swift in Sources */,
@@ -395,7 +396,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C86B66BE2B2F1F850040D162 /* StubNetworkClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

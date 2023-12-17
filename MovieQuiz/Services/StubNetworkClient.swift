@@ -7,9 +7,6 @@
 
 import Foundation
 
-protocol NetworkRoiting {
-    func fetch(url: URL, handler: @escaping (Result<Data, Error>) -> Void)
-}
 /// Структура, которая отвечает за загрузку данных по URL
 struct StubNetworkClient: NetworkRoiting {
     
