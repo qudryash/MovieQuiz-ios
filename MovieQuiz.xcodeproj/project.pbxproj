@@ -31,6 +31,7 @@
 		C8602B5C2B0F8ECD008F4210 /* GameRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8602B5B2B0F8ECD008F4210 /* GameRecord.swift */; };
 		C86B66A92B2F16700040D162 /* ArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86B66A82B2F16700040D162 /* ArrayTests.swift */; };
 		C86B66BC2B2F1B1D0040D162 /* MoviesLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86B66B52B2F1B180040D162 /* MoviesLoaderTests.swift */; };
+		C86B66BE2B2F1F850040D162 /* StubNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86B66BD2B2F1F850040D162 /* StubNetworkClient.swift */; };
 		C87A5E322B1BAE7A00A4DE08 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87A5E312B1BAE7A00A4DE08 /* NetworkClient.swift */; };
 		C87A5E342B1BB00A00A4DE08 /* MostPopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87A5E332B1BB00A00A4DE08 /* MostPopularMovies.swift */; };
 		C87A5E362B1BB09C00A4DE08 /* MoviesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87A5E352B1BB09C00A4DE08 /* MoviesLoader.swift */; };
@@ -82,6 +83,7 @@
 		C86B66A82B2F16700040D162 /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
 		C86B66B32B2F1B180040D162 /* MoviesLoaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesLoaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C86B66B52B2F1B180040D162 /* MoviesLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesLoaderTests.swift; sourceTree = "<group>"; };
+		C86B66BD2B2F1F850040D162 /* StubNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubNetworkClient.swift; sourceTree = "<group>"; };
 		C87A5E312B1BAE7A00A4DE08 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		C87A5E332B1BB00A00A4DE08 /* MostPopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostPopularMovies.swift; sourceTree = "<group>"; };
 		C87A5E352B1BB09C00A4DE08 /* MoviesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesLoader.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			children = (
 				C86B66A82B2F16700040D162 /* ArrayTests.swift */,
 				C86B66B52B2F1B180040D162 /* MoviesLoaderTests.swift */,
+				C86B66BD2B2F1F850040D162 /* StubNetworkClient.swift */,
 			);
 			path = MovieQuizTests;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 					};
 					C86B66B22B2F1B180040D162 = {
 						CreatedOnToolsVersion = 14.3.1;
+						LastSwiftMigration = 1430;
 						TestTargetID = AD1ABAAD2831907B00B3E448;
 					};
 				};
@@ -391,6 +395,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C86B66BE2B2F1F850040D162 /* StubNetworkClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,6 +655,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DW8TYMM7W4;
@@ -659,6 +665,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.practicum.MoviesLoaderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MovieQuiz.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MovieQuiz";
@@ -670,6 +677,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DW8TYMM7W4;
