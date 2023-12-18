@@ -21,6 +21,8 @@ final class AlertPresenter: AlertPresenterProtocol {
             style: .default,
             handler: alertInformation.completion)
         
+        alert.view.accessibilityIdentifier = "Game results"
+        
         alert.addAction(action)
         
         viewController.present(alert, animated: true, completion: nil)
