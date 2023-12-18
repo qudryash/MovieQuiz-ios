@@ -91,11 +91,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         activeButton(isCorrect: false)
         imageView.layer.borderWidth = 0
         
-        if currentQuestionIndex == questionsAmount - 1 {
-            statisticService.store(correct: correctAnswers, total: questionsAmount)
+        if presenter.isLastQuestion() {
+            statisticService.store(correct: correctAnswers, total: presenter.questionsAmount)
             
             let text = """
-            Ваш результат: \(correctAnswers) из \(questionsAmount)!
+            Ваш результат: \(correctAnswers) из \(presenter.questionsAmount)!
             Количество сыграных квизов: \(statisticService.gamesCount)
             Рекорд: \(statisticService.bestGame.convertToString())
             Средняя точность: \(Int(statisticService.totalAccuracy))%
@@ -109,7 +109,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             
             alertPresenter.show(alertInformation: alertInformation, viewController: self)
         } else {
-            currentQuestionIndex += 1
+            presenter.switchToNextQuestion()
             questionFactory?.requestNextQuestion()
         }
     }
@@ -128,7 +128,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     // Метод сброса вопросов
     private func resetGame (_: UIAlertAction) {
-        self.currentQuestionIndex = 0
+        self.presenter.resetQuestionIndex()
         self.correctAnswers = 0
         self.questionFactory?.requestNextQuestion()
     }
