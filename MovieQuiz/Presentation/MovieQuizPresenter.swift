@@ -8,6 +8,10 @@
 import UIKit
 
 final class MovieQuizPresenter {
+    
+    private let currentQuestionIndex = 0
+    private let questionsAmount = 10
+    
     //    Метод конвертации из "Список вопросов" QuizQuestion в "Вопрос показан" QuizStepViewModel
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         return QuizStepViewModel (
