@@ -9,8 +9,20 @@ import UIKit
 
 final class MovieQuizPresenter {
     
-    private let currentQuestionIndex = 0
-    private let questionsAmount = 10
+    private var currentQuestionIndex: Int = 0
+    let questionsAmount: Int = 10
+    
+    func isLastQuestion() -> Bool {
+        currentQuestionIndex == questionsAmount - 1
+    }
+    
+    func resetQuestionIndex() {
+        currentQuestionIndex = 0
+    }
+    
+    func switchToNextQuestion() {
+        currentQuestionIndex += 1
+    }
     
     //    Метод конвертации из "Список вопросов" QuizQuestion в "Вопрос показан" QuizStepViewModel
     func convert(model: QuizQuestion) -> QuizStepViewModel {
