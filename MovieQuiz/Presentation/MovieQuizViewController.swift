@@ -25,6 +25,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter.viewController = self
+        
         imageView.layer.cornerRadius = 20
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         statisticService = StatisticServiceImplementation()
@@ -57,7 +59,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     //    Метод работы кнопки
-    private func activeButton (isCorrect: Bool){
+    func activeButton (isCorrect: Bool){
         if isCorrect {
             yesButton.isEnabled = false
             noButton.isEnabled = false
@@ -69,7 +71,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     //    Метод изменения рамки после выбора ответа
-    private func showAnswerResult(isCorrect: Bool) {
+    func showAnswerResult(isCorrect: Bool) {
         if isCorrect {
             correctAnswers += 1
         }
@@ -159,20 +161,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     // MARK: - Actions
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        let givenAnswer = true
-        activeButton(isCorrect: true)
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        presenter.currentQuestion = currentQuestion
+        presenter.yesButtonClicked()
     }
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        let givenAnswer = false
-        activeButton(isCorrect: true)
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        presenter.currentQuestion = currentQuestion
+        presenter.noButtonClicked()
     }
 }
