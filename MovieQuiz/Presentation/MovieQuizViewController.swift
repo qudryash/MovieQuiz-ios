@@ -60,6 +60,7 @@ final class MovieQuizViewController: UIViewController {
         imageView.layer.cornerRadius = 20
     }
     
+    //    Метод сброса рамки
     func resetBorderWith() {
         imageView.layer.borderWidth = 0
     }
@@ -82,6 +83,7 @@ final class MovieQuizViewController: UIViewController {
         noButton.isEnabled = !isCorrect
     }
     
+    //    Метод показа Алерта со статистикой
     func showAlert(alertInformation: AlertModel) {
         
         let alert = UIAlertController (
