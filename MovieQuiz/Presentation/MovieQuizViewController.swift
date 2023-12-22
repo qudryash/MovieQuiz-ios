@@ -2,8 +2,6 @@ import UIKit
 
 final class MovieQuizViewController: UIViewController {
     
-    private var presenter: MovieQuizPresenter?
-    
     // MARK: - Properties
     
     //    Подключаем Storyboard к коду
@@ -14,16 +12,7 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private var noButton: UIButton!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    
-    // MARK: - Actions
-    
-    @IBAction private func yesButtonClicked(_ sender: UIButton) {
-        presenter?.yesButtonClicked()
-    }
-    
-    @IBAction private func noButtonClicked(_ sender: UIButton) {
-        presenter?.noButtonClicked()
-    }
+    private var presenter: MovieQuizPresenter?
     
     
     // MARK: - Lifecycle
@@ -33,6 +22,17 @@ final class MovieQuizViewController: UIViewController {
         presenter = MovieQuizPresenter(viewController: self)
         imageView.layer.cornerRadius = 20
         showLoadingIndicator()
+    }
+    
+    
+    // MARK: - Actions
+    
+    @IBAction private func yesButtonClicked(_ sender: UIButton) {
+        presenter?.yesButtonClicked()
+    }
+    
+    @IBAction private func noButtonClicked(_ sender: UIButton) {
+        presenter?.noButtonClicked()
     }
     
     

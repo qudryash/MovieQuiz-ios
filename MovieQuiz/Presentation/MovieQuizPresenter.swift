@@ -55,8 +55,9 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     }
     
     //    Метод обнуления индекса вопроса
-    private func resetQuestionIndex() {
+    private func restartGame() {
         currentQuestionIndex = 0
+        self.correctAnswers = 0
     }
     
     //    Метод работы кнопки ДА
@@ -103,8 +104,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     // Метод сброса вопросов
     private func resetGame (_: UIAlertAction) {
-        self.resetQuestionIndex()
-        self.correctAnswers = 0
+        self.restartGame()
         self.questionFactory?.requestNextQuestion()
     }
     
