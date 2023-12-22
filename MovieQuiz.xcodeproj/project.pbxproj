@@ -138,10 +138,10 @@
 		8F4738322848DE2A005DF65E /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				AD1ABAB52831907B00B3E448 /* MovieQuizViewController.swift */,
 				AD1ABAB72831907B00B3E448 /* Main.storyboard */,
 				C8602AD72B0CEA3E008F4210 /* AlertPresenter.swift */,
 				C8602AD92B0CF792008F4210 /* AlertPresenterProtocol.swift */,
+				AD1ABAB52831907B00B3E448 /* MovieQuizViewController.swift */,
 				C86B66CF2B30C3440040D162 /* MovieQuizPresenter.swift */,
 			);
 			path = Presentation;
