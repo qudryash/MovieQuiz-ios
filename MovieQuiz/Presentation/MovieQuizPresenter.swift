@@ -9,28 +9,20 @@ import UIKit
 
 final class MovieQuizPresenter: QuestionFactoryDelegate {
     
-    private var currentQuestionIndex: Int = 0
-    private let questionsAmount: Int = 10
-    private var correctAnswers = 0
-    
     private var currentQuestion: QuizQuestion?
     weak var viewController: MovieQuizViewController?
     private var questionFactory: QuestionFactoryProtocol?
     private var statisticService: StatisticService
+    
+    private var currentQuestionIndex: Int = 0
+    private let questionsAmount: Int = 10
+    private var correctAnswers = 0
     
     init(viewController: MovieQuizViewController) {
         self.viewController = viewController
         statisticService = StatisticServiceImplementation()
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         questionFactory?.loadData()
-    }
-    
-    //    Метод конвертации из "Список вопросов" QuizQuestion в "Вопрос показан" QuizStepViewModel
-    private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        return QuizStepViewModel (
-            image: UIImage(data: model.image) ?? UIImage(),
-            question: model.text,
-            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
     
     // Метод положительной загрузки данных с сервера
@@ -42,6 +34,24 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     // Метод отрицательной загрузки данных с сервера
     func didFailToLoadData(with error: Error) {
         showNetworkError(message: error.localizedDescription)
+    }
+    
+    //    Метод работы кнопки ДА
+    func yesButtonClicked() {
+        didAnswer(isYes: true)
+    }
+    
+    //    Метод работы кнопки НЕТ
+    func noButtonClicked() {
+        didAnswer(isYes: false)
+    }
+    
+    //    Метод конвертации из "Список вопросов" QuizQuestion в "Вопрос показан" QuizStepViewModel
+    private func convert(model: QuizQuestion) -> QuizStepViewModel {
+        return QuizStepViewModel (
+            image: UIImage(data: model.image) ?? UIImage(),
+            question: model.text,
+            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
     
     //    Метод расчета следующего вопроса
@@ -58,16 +68,6 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     private func restartGame() {
         currentQuestionIndex = 0
         self.correctAnswers = 0
-    }
-    
-    //    Метод работы кнопки ДА
-    func yesButtonClicked() {
-        didAnswer(isYes: true)
-    }
-    
-    //    Метод работы кнопки НЕТ
-    func noButtonClicked() {
-        didAnswer(isYes: false)
     }
     
     //    Метод логики ответов

@@ -36,13 +36,6 @@ final class MovieQuizViewController: UIViewController {
     }
     
     
-    // MARK: - QuestionFactoryDelegate
-    
-    func didReceiveNextQuestion(question: QuizQuestion?) {
-        presenter?.didReceiveNextQuestion(question: question)
-    }
-    
-    
     // MARK: - Functions
     
     //    Метод работы кнопки
