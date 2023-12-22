@@ -10,24 +10,20 @@ import UIKit
 final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     private var currentQuestionIndex: Int = 0
-    let questionsAmount: Int = 10
-    var correctAnswers = 0
+    private let questionsAmount: Int = 10
+    private var correctAnswers = 0
     
-    
-    var currentQuestion: QuizQuestion?
+    private var currentQuestion: QuizQuestion?
     weak var viewController: MovieQuizViewController?
     private var questionFactory: QuestionFactoryProtocol?
     private var statisticService: StatisticService
-//    private let alertPresenter: AlertPresenterProtocol?
     
     init(viewController: MovieQuizViewController) {
         self.viewController = viewController
         statisticService = StatisticServiceImplementation()
-//        alertPresenter = AlertPresenter()
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         questionFactory?.loadData()
     }
-    
     
     // Метод отрицательной загрузки данных с сервера
     func didFailToLoadData(with error: Error) {
@@ -40,39 +36,42 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         questionFactory?.requestNextQuestion()
     }
     
-    func isLastQuestion() -> Bool {
+    private func isLastQuestion() -> Bool {
         currentQuestionIndex == questionsAmount - 1
     }
     
-    func resetQuestionIndex() {
+    //    Метод обнуления индекса вопроса
+    private func resetQuestionIndex() {
         currentQuestionIndex = 0
     }
     
-    func switchToNextQuestion() {
+    //    Метод счета индекса вопроса
+    private func switchToNextQuestion() {
         currentQuestionIndex += 1
     }
     
     //    Метод конвертации из "Список вопросов" QuizQuestion в "Вопрос показан" QuizStepViewModel
-    func convert(model: QuizQuestion) -> QuizStepViewModel {
+    private func convert(model: QuizQuestion) -> QuizStepViewModel {
         return QuizStepViewModel (
             image: UIImage(data: model.image) ?? UIImage(),
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
     
+    //    Метод работы кнопки ДА
     func yesButtonClicked() {
         didAnswer(isYes: true)
     }
     
+    //    Метод работы кнопки НЕТ
     func noButtonClicked() {
         didAnswer(isYes: false)
     }
     
+    //    Метод логики ответов
     private func didAnswer (isYes: Bool) {
         
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
+        guard let currentQuestion = currentQuestion else { return }
         
         let givenAnswer = isYes
         let isCorrect = givenAnswer == currentQuestion.correctAnswer
@@ -91,9 +90,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     }
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
-        guard let question = question else {
-            return
-        }
+        guard let question = question else { return }
         
         currentQuestion = question
         let viewModel = convert(model: question)
@@ -103,7 +100,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     }
     
     //    Метод вывода нового вопроса или итогового результата
-    func showNextQuestionOrResults() {
+    private func showNextQuestionOrResults() {
         viewController?.activeButton(isCorrect: false)
         viewController?.resetBorderWith()
         
@@ -130,17 +127,16 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         }
     }
     
-    
     // Метод сброса вопросов
-    func resetGame (_: UIAlertAction) {
+    private func resetGame (_: UIAlertAction) {
         self.resetQuestionIndex()
         self.correctAnswers = 0
         self.questionFactory?.requestNextQuestion()
     }
     
-    func showNetworkError(message: String) {
+    // Метод показа Алерта с информацией об ошибке
+    private func showNetworkError(message: String) {
         viewController?.hideLoadingIndicator()
-        
         
         let alertError = AlertModel(
             title: "Ошибка",

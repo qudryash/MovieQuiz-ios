@@ -2,6 +2,8 @@ import UIKit
 
 final class MovieQuizViewController: UIViewController {
     
+    private var presenter: MovieQuizPresenter?
+    
     // MARK: - Properties
     
     //    Подключаем Storyboard к коду
@@ -11,7 +13,7 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private var yesButton: UIButton!
     @IBOutlet private var noButton: UIButton!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    private var presenter: MovieQuizPresenter?
+    
     
     // MARK: - Actions
     
@@ -23,34 +25,23 @@ final class MovieQuizViewController: UIViewController {
         presenter?.noButtonClicked()
     }
     
-    // Объявляем значения переменных и ссылки на протоколы и делегаты
-
-
-
-
-
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         presenter = MovieQuizPresenter(viewController: self)
-        
         imageView.layer.cornerRadius = 20
-
-        
         showLoadingIndicator()
-    
-
     }
+    
     
     // MARK: - QuestionFactoryDelegate
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
         presenter?.didReceiveNextQuestion(question: question)
-        }
-        
+    }
+    
     
     // MARK: - Private functions
     
@@ -61,22 +52,15 @@ final class MovieQuizViewController: UIViewController {
         counterLabel.text = step.questionNumber
     }
     
-
-    
     //    Метод изменения рамки после выбора ответа
     func showAnswerResult(isCorrect: Bool) {
-
-        
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
         imageView.layer.cornerRadius = 20
-        
-
     }
     
     func resetBorderWith() {
-        
         imageView.layer.borderWidth = 0
     }
     
@@ -117,5 +101,4 @@ final class MovieQuizViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-
 }
