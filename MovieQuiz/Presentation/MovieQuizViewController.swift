@@ -43,7 +43,25 @@ final class MovieQuizViewController: UIViewController {
     }
     
     
-    // MARK: - Private functions
+    // MARK: - Functions
+    
+    //    Метод работы кнопки
+    func activeButton (isCorrect: Bool){
+        yesButton.isEnabled = !isCorrect
+        noButton.isEnabled = !isCorrect
+    }
+    
+    // Метод активации индикатора загрузки
+    func showLoadingIndicator () {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    // Метод деактивации индикатора загрузки
+    func hideLoadingIndicator () {
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
+    }
     
     //    Метод вывода на экран вопроса
     func show (quiz step: QuizStepViewModel){
@@ -63,24 +81,6 @@ final class MovieQuizViewController: UIViewController {
     //    Метод сброса рамки
     func resetBorderWith() {
         imageView.layer.borderWidth = 0
-    }
-    
-    // Метод активации индикатора загрузки
-    func showLoadingIndicator () {
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
-    }
-    
-    // Метод деактивации индикатора загрузки
-    func hideLoadingIndicator () {
-        activityIndicator.isHidden = true
-        activityIndicator.stopAnimating()
-    }
-    
-    //    Метод работы кнопки
-    func activeButton (isCorrect: Bool){
-        yesButton.isEnabled = !isCorrect
-        noButton.isEnabled = !isCorrect
     }
     
     //    Метод показа Алерта со статистикой

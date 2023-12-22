@@ -25,9 +25,12 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         questionFactory?.loadData()
     }
     
-    // Метод отрицательной загрузки данных с сервера
-    func didFailToLoadData(with error: Error) {
-        showNetworkError(message: error.localizedDescription)
+    //    Метод конвертации из "Список вопросов" QuizQuestion в "Вопрос показан" QuizStepViewModel
+    private func convert(model: QuizQuestion) -> QuizStepViewModel {
+        return QuizStepViewModel (
+            image: UIImage(data: model.image) ?? UIImage(),
+            question: model.text,
+            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
     
     // Метод положительной загрузки данных с сервера
@@ -36,13 +39,14 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         questionFactory?.requestNextQuestion()
     }
     
-    private func isLastQuestion() -> Bool {
-        currentQuestionIndex == questionsAmount - 1
+    // Метод отрицательной загрузки данных с сервера
+    func didFailToLoadData(with error: Error) {
+        showNetworkError(message: error.localizedDescription)
     }
     
-    //    Метод обнуления индекса вопроса
-    private func resetQuestionIndex() {
-        currentQuestionIndex = 0
+    //    Метод расчета следующего вопроса
+    private func isLastQuestion() -> Bool {
+        currentQuestionIndex == questionsAmount - 1
     }
     
     //    Метод счета индекса вопроса
@@ -50,12 +54,9 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         currentQuestionIndex += 1
     }
     
-    //    Метод конвертации из "Список вопросов" QuizQuestion в "Вопрос показан" QuizStepViewModel
-    private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        return QuizStepViewModel (
-            image: UIImage(data: model.image) ?? UIImage(),
-            question: model.text,
-            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
+    //    Метод обнуления индекса вопроса
+    private func resetQuestionIndex() {
+        currentQuestionIndex = 0
     }
     
     //    Метод работы кнопки ДА
@@ -89,6 +90,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         }
     }
     
+    //    Метод логики вопросов
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else { return }
         
@@ -97,6 +99,13 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.viewController?.show(quiz: viewModel)
         }
+    }
+    
+    // Метод сброса вопросов
+    private func resetGame (_: UIAlertAction) {
+        self.resetQuestionIndex()
+        self.correctAnswers = 0
+        self.questionFactory?.requestNextQuestion()
     }
     
     //    Метод вывода нового вопроса или итогового результата
@@ -125,13 +134,6 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             switchToNextQuestion()
             questionFactory?.requestNextQuestion()
         }
-    }
-    
-    // Метод сброса вопросов
-    private func resetGame (_: UIAlertAction) {
-        self.resetQuestionIndex()
-        self.correctAnswers = 0
-        self.questionFactory?.requestNextQuestion()
     }
     
     // Метод показа Алерта с информацией об ошибке
