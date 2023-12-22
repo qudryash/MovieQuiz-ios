@@ -82,6 +82,12 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         if isCorrect {
             correctAnswers += 1
         }
+        
+        //        Задержка по времени
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            guard let self = self else { return }
+            self.showNextQuestionOrResults()
+        }
     }
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
