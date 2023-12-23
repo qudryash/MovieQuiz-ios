@@ -178,7 +178,6 @@
 				AD1ABAB02831907B00B3E448 /* MovieQuiz */,
 				C86B66A72B2F16700040D162 /* MovieQuizTests */,
 				C86B66C52B3093AE0040D162 /* MovieQuizUITests */,
-				C891D36C2B36CD2C0056316B /* MovieQuizPresenterTests */,
 				AD1ABAAF2831907B00B3E448 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -272,13 +271,6 @@
 				C86B66C82B3093AE0040D162 /* MovieQuizUITestsLaunchTests.swift */,
 			);
 			path = MovieQuizUITests;
-			sourceTree = "<group>";
-		};
-		C891D36C2B36CD2C0056316B /* MovieQuizPresenterTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MovieQuizPresenterTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

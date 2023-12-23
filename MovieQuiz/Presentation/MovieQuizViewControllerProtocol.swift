@@ -24,4 +24,5 @@ protocol MovieQuizViewControllerProtocol: AnyObject {
 
     func resetBorderWith()
     
+    func indicator()
 }

@@ -53,8 +53,13 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     
     // Метод деактивации индикатора загрузки
     func hideLoadingIndicator () {
-        activityIndicator.isHidden = true
+        indicator()
         activityIndicator.stopAnimating()
+    }
+    
+    // Метод индикатора
+    func indicator() {
+        activityIndicator.isHidden = true
     }
     
     //    Метод вывода на экран вопроса
@@ -110,4 +115,5 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         showAlert(alertInformation: alertError)
     }
     
+
 }

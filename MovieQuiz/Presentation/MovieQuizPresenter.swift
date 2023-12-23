@@ -27,7 +27,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     // Метод положительной загрузки данных с сервера
     func didLoadDataFromServer() {
-        viewController?.activityIndicator.isHidden = true
+        viewController?.indicator()
         questionFactory?.requestNextQuestion()
     }
     

@@ -33,7 +33,8 @@ final class MovieQuizViewControllerMock: MovieQuizViewControllerProtocol {
     func showNetworkError(message: String) {
     }
     
-    
+    func indicator() {
+    }
 }
 
 final class MovieQuizPresenterTests: XCTestCase {
