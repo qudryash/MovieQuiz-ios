@@ -13,7 +13,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var presenter: MovieQuizPresenter?
-
+    
     
     
     // MARK: - Lifecycle
@@ -115,5 +115,5 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         showAlert(alertInformation: alertError)
     }
     
-
+    
 }

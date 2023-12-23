@@ -21,7 +21,7 @@ protocol MovieQuizViewControllerProtocol: AnyObject {
     func showNetworkError(message: String)
     
     func activeButton (isCorrect: Bool)
-
+    
     func resetBorderWith()
     
     func indicator()
