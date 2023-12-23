@@ -1,6 +1,6 @@
 import UIKit
 
-final class MovieQuizViewController: UIViewController {
+final class MovieQuizViewController: UIViewController, MovieQuizViewControllerProtocol {
     
     // MARK: - Properties
     
@@ -10,9 +10,10 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private var counterLabel: UILabel!
     @IBOutlet private var yesButton: UIButton!
     @IBOutlet private var noButton: UIButton!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private var presenter: MovieQuizPresenter?
+
     
     
     // MARK: - Lifecycle
@@ -94,6 +95,19 @@ final class MovieQuizViewController: UIViewController {
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    // Метод показа Алерта с информацией об ошибке
+    func showNetworkError(message: String) {
+        hideLoadingIndicator()
+        guard let presenter else { return }
+        let alertError = AlertModel(
+            title: "Ошибка",
+            message: message,
+            buttonText: "Попробовать еще раз",
+            completion: presenter.resetGame)
+        
+        showAlert(alertInformation: alertError)
     }
     
 }

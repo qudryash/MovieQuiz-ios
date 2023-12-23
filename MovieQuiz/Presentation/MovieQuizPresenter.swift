@@ -10,7 +10,7 @@ import UIKit
 final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     private var currentQuestion: QuizQuestion?
-    weak var viewController: MovieQuizViewController?
+    weak var viewController: MovieQuizViewControllerProtocol?
     private var questionFactory: QuestionFactoryProtocol?
     private var statisticService: StatisticService
     
@@ -18,7 +18,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     private let questionsAmount: Int = 10
     private var correctAnswers = 0
     
-    init(viewController: MovieQuizViewController) {
+    init(viewController: MovieQuizViewControllerProtocol) {
         self.viewController = viewController
         statisticService = StatisticServiceImplementation()
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
@@ -33,7 +33,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     // Метод отрицательной загрузки данных с сервера
     func didFailToLoadData(with error: Error) {
-        showNetworkError(message: error.localizedDescription)
+        viewController?.showNetworkError(message: error.localizedDescription)
     }
     
     //    Метод работы кнопки ДА
@@ -47,7 +47,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     }
     
     //    Метод конвертации из "Список вопросов" QuizQuestion в "Вопрос показан" QuizStepViewModel
-    private func convert(model: QuizQuestion) -> QuizStepViewModel {
+    func convert(model: QuizQuestion) -> QuizStepViewModel {
         return QuizStepViewModel (
             image: UIImage(data: model.image) ?? UIImage(),
             question: model.text,
@@ -103,7 +103,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     }
     
     // Метод сброса вопросов
-    private func resetGame (_: UIAlertAction) {
+    func resetGame (_: UIAlertAction) {
         self.restartGame()
         self.questionFactory?.requestNextQuestion()
     }
@@ -136,17 +136,6 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         }
     }
     
-    // Метод показа Алерта с информацией об ошибке
-    private func showNetworkError(message: String) {
-        viewController?.hideLoadingIndicator()
-        
-        let alertError = AlertModel(
-            title: "Ошибка",
-            message: message,
-            buttonText: "Попробовать еще раз",
-            completion: resetGame)
-        
-        viewController?.showAlert(alertInformation: alertError)
-    }
+
 }
 
